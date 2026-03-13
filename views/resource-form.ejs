@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/head", { title: pageTitle }) %>
+  </head>
+  <body>
+    <%- include("partials/header", { navKey }) %>
+
+    <main class="page-shell">
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Inventory admin</span>
+            <h1><%= title %></h1>
+            <p class="section-copy"><%= intro %></p>
+          </div>
+        </div>
+
+        <%- include("partials/flash", { successMessage: null, errorMessage }) %>
+
+        <form action="<%= formAction %>" class="entity-form" method="post">
+          <div class="form-grid">
+            <%- include("partials/form-fields", { fields, record }) %>
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">
+              <%= submitLabel %>
+            </button>
+            <a class="button button-secondary" href="<%= cancelHref %>">Cancel</a>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
