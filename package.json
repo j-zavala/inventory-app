@@ -1,0 +1,20 @@
+{
+  "name": "inventory-app",
+  "version": "1.0.0",
+  "description": "Inventory app to track and move devices between different states in its lifecycle in a university setting. For user by IT staff.",
+  "homepage": "https://github.com/j-zavala/inventory-app#readme",
+  "bugs": {
+    "url": "https://github.com/j-zavala/inventory-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j-zavala/inventory-app.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
