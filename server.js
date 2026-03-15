@@ -57,8 +57,8 @@ function buildComputerFormData(source = {}) {
       ? String(source.purchase_date).trim()
       : "",
     status: source.status ? String(source.status).trim() : "",
-    current_location_id: source.current_location_id
-      ? String(source.current_location_id).trim()
+    location_display: source.location_display
+      ? String(source.location_display).trim()
       : "",
   };
 }
@@ -82,13 +82,6 @@ function validateComputer(computer) {
     errors.push("Choose a valid status.");
   }
 
-  if (
-    computer.current_location_id &&
-    !/^\d+$/.test(computer.current_location_id)
-  ) {
-    errors.push("Current location ID must be a whole number.");
-  }
-
   return errors;
 }
 
@@ -101,7 +94,6 @@ function toComputerValues(computer) {
     emptyToNull(computer.model),
     emptyToNull(computer.purchase_date),
     emptyToNull(computer.status),
-    computer.current_location_id ? Number(computer.current_location_id) : null,
   ];
 }
 
@@ -124,7 +116,7 @@ function getDbErrorMessage(error) {
   }
 
   if (error.code === "23503" && error.constraint === "fk_computers_location") {
-    return "The location ID does not exist yet. Leave it blank for part 2 or create the location first.";
+    return "Location assignment is handled outside the part 2 computers form.";
   }
 
   if (error.code === "22P02") {
@@ -256,10 +248,9 @@ app.post("/computers", async (req, res) => {
         manufacturer,
         model,
         purchase_date,
-        status,
-        current_location_id
+        status
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING asset_tag
     `;
 
@@ -307,7 +298,10 @@ app.get("/computers/:id/edit", async (req, res, next) => {
         model,
         TO_CHAR(purchase_date, 'YYYY-MM-DD') AS purchase_date,
         status,
-        current_location_id
+        CASE
+          WHEN current_location_id IS NULL THEN ''
+          ELSE 'Linked location record'
+        END AS location_display
       FROM mydb.computers
       WHERE computer_id = $1
     `;
@@ -374,9 +368,8 @@ app.post("/computers/:id", async (req, res, next) => {
         manufacturer = $4,
         model = $5,
         purchase_date = $6,
-        status = $7,
-        current_location_id = $8
-      WHERE computer_id = $9
+        status = $7
+      WHERE computer_id = $8
       RETURNING asset_tag
     `;
 

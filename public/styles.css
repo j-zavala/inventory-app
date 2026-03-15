@@ -350,6 +350,14 @@ code {
   font: inherit;
 }
 
+.field input:disabled,
+.field select:disabled {
+  color: #7a888f;
+  background: rgba(231, 235, 236, 0.92);
+  border-color: rgba(23, 33, 38, 0.12);
+  cursor: not-allowed;
+}
+
 .field small {
   color: var(--muted);
 }

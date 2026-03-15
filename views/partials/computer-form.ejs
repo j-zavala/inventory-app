@@ -50,9 +50,17 @@
     </div>
 
     <div class="field">
-      <label for="current_location_id">Current Location ID</label>
-      <input id="current_location_id" name="current_location_id" type="number" min="1" step="1" value="<%= computer.current_location_id %>" />
-      <small>Optional for part 2. Leave blank if you are not using the locations table yet.</small>
+      <label for="location_display">Location</label>
+      <input
+        id="location_display"
+        type="text"
+        value="<%= computer.location_display || 'Available in Part 3' %>"
+        disabled
+      />
+      <small>
+        Location is a related record. For part 2, it is visible but not editable
+        from the computers form.
+      </small>
     </div>
   </div>
 
