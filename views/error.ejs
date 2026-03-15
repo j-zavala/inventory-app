@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/head", { title: pageTitle }) %>
+  </head>
+  <body>
+    <%- include("partials/header", { currentPath: "" }) %>
+
+    <main class="page-shell">
+      <section class="panel error-panel">
+        <p class="eyebrow">Application Message</p>
+        <h1><%= heading %></h1>
+        <p class="error-copy"><%= message %></p>
+        <a class="button button-primary" href="/computers">Go to computers</a>
+      </section>
+    </main>
+  </body>
+</html>

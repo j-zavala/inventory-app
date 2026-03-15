@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../partials/head", { title: "Computers" }) %>
+  </head>
+  <body>
+    <%- include("../partials/header", { currentPath: "/computers" }) %>
+
+    <main class="page-shell">
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Single-Table CRUD</p>
+            <h1>Computers</h1>
+            <p class="section-copy">
+              Manage records from <code>mydb.computers</code>. Location is optional for
+              this part of the project, so leaving the location ID blank is fine.
+            </p>
+          </div>
+          <a class="button button-primary" href="/computers/new">Add computer</a>
+        </div>
+
+        <%- include("../partials/flash", { successMessage, errorMessage }) %>
+
+        <% if (computers.length === 0) { %>
+          <p class="empty-state">
+            The table is empty right now. Add a computer to test the create flow.
+          </p>
+        <% } else { %>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Asset Tag</th>
+                  <th>Serial Number</th>
+                  <th>Device Type</th>
+                  <th>Manufacturer</th>
+                  <th>Model</th>
+                  <th>Purchase Date</th>
+                  <th>Status</th>
+                  <th>Location</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% computers.forEach((computer) => { %>
+                  <tr>
+                    <td><%= computer.computer_id %></td>
+                    <td><%= computer.asset_tag %></td>
+                    <td><%= computer.serial_number %></td>
+                    <td><%= computer.device_type %></td>
+                    <td><%= computer.manufacturer || "Not provided" %></td>
+                    <td><%= computer.model || "Not provided" %></td>
+                    <td><%= computer.purchase_date || "Not provided" %></td>
+                    <td><span class="status-pill status-<%= computer.status %>"><%= computer.status %></span></td>
+                    <td>
+                      <% if (computer.location_label) { %>
+                        <%= computer.location_label %>
+                      <% } else if (computer.current_location_id) { %>
+                        Location ID <%= computer.current_location_id %>
+                      <% } else { %>
+                        Not assigned
+                      <% } %>
+                    </td>
+                    <td>
+                      <div class="table-actions">
+                        <a class="button button-secondary button-compact" href="/computers/<%= computer.computer_id %>/edit">Edit</a>
+                        <form action="/computers/<%= computer.computer_id %>/delete" method="post">
+                          <button
+                            class="button button-danger button-compact"
+                            type="submit"
+                            onclick="return confirm('Delete this computer record?');"
+                          >
+                            Delete
+                          </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>

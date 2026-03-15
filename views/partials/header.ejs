@@ -1,0 +1,12 @@
+<header class="site-header">
+  <a class="brand" href="/">
+    <span class="brand-mark">University IT</span>
+    <span class="brand-name">Inventory App</span>
+  </a>
+
+  <nav class="site-nav">
+    <a class="<%= currentPath === '/' ? 'is-active' : '' %>" href="/">Dashboard</a>
+    <a class="<%= currentPath === '/computers' ? 'is-active' : '' %>" href="/computers">Computers</a>
+    <a class="<%= currentPath === '/computers/new' ? 'is-active' : '' %>" href="/computers/new">Add Computer</a>
+  </nav>
+</header>

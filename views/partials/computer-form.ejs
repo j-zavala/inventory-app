@@ -1,0 +1,63 @@
+<form class="computer-form" action="<%= formAction %>" method="post">
+  <div class="form-grid">
+    <div class="field">
+      <label for="asset_tag">Asset Tag</label>
+      <input id="asset_tag" name="asset_tag" type="text" maxlength="50" required value="<%= computer.asset_tag %>" />
+    </div>
+
+    <div class="field">
+      <label for="serial_number">Serial Number</label>
+      <input id="serial_number" name="serial_number" type="text" maxlength="50" required value="<%= computer.serial_number %>" />
+    </div>
+
+    <div class="field">
+      <label for="device_type">Device Type</label>
+      <select id="device_type" name="device_type" required>
+        <option value="">Select one</option>
+        <% deviceTypes.forEach((deviceType) => { %>
+          <option value="<%= deviceType %>" <%= computer.device_type === deviceType ? "selected" : "" %>>
+            <%= deviceType %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="status">Status</label>
+      <select id="status" name="status" required>
+        <option value="">Select one</option>
+        <% statuses.forEach((statusOption) => { %>
+          <option value="<%= statusOption %>" <%= computer.status === statusOption ? "selected" : "" %>>
+            <%= statusOption %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="manufacturer">Manufacturer</label>
+      <input id="manufacturer" name="manufacturer" type="text" maxlength="255" value="<%= computer.manufacturer %>" />
+    </div>
+
+    <div class="field">
+      <label for="model">Model</label>
+      <input id="model" name="model" type="text" maxlength="255" value="<%= computer.model %>" />
+    </div>
+
+    <div class="field">
+      <label for="purchase_date">Purchase Date</label>
+      <input id="purchase_date" name="purchase_date" type="date" value="<%= computer.purchase_date %>" />
+    </div>
+
+    <div class="field">
+      <label for="current_location_id">Current Location ID</label>
+      <input id="current_location_id" name="current_location_id" type="number" min="1" step="1" value="<%= computer.current_location_id %>" />
+      <small>Optional for part 2. Leave blank if you are not using the locations table yet.</small>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <a class="text-link" href="/computers">Cancel</a>
+    <button class="button button-primary" type="submit"><%= submitLabel %></button>
+  </div>
+</form>

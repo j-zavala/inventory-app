@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../partials/head", { title: pageTitle }) %>
+  </head>
+  <body>
+    <%- include("../partials/header", { currentPath: "/computers" }) %>
+
+    <main class="page-shell">
+      <section class="panel form-panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Update</p>
+            <h1><%= pageTitle %></h1>
+            <p class="section-copy"><%= intro %></p>
+          </div>
+          <a class="text-link" href="/computers">Back to computers</a>
+        </div>
+
+        <%- include("../partials/flash", { successMessage: null, errorMessage }) %>
+        <%- include("../partials/computer-form") %>
+      </section>
+    </main>
+  </body>
+</html>
