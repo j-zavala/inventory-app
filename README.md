@@ -10,21 +10,30 @@ single-table UI for the `mydb.computers` table in PostgreSQL.
 - Supports create, read, update, and delete operations for computers
 - Uses the schema in [db/schema.sql](db/schema.sql)
 
-## One-click deploy on Railway
+## Deploy on Railway (self-host in your own account)
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template?template=https://github.com/j-zavala/inventory-app)
+[![Open in Railway](https://railway.com/button.svg)](https://railway.com/new)
 
-This repo now includes a `railway.json` config that runs:
+> Railway currently sends this button to the **New Project** screen (`/new`).
+> That is expected. From there, choose **GitHub Repository** and select this repo.
+
+This repo includes a `railway.json` config that runs:
 
 - `npm run migrate` to apply `db/schema.sql`
 - `npm start` to launch Express
 
-So when someone deploys this repo to Railway, they only need to:
+### Deploy steps
 
-1. Create a new Railway project from this GitHub repo.
-2. Add a PostgreSQL service in the same Railway project.
-3. Set `DATABASE_URL` on the web service to the PostgreSQL connection string.
-4. Redeploy.
+1. Click the Railway button above.
+2. Choose **GitHub Repository** and select `inventory-app`.
+3. In the same Railway project, click **+ New** and add a **PostgreSQL** service.
+4. Open your web service → **Variables** and set:
+   - `DATABASE_URL` = Postgres connection string (from your Railway Postgres service)
+5. Redeploy the web service.
+
+### Why the button does not open this repo directly
+
+The generic Railway button opens project creation. Repository preselection depends on Railway-side template publishing or GitHub integration state, so landing on `/new` is normal.
 
 ### If Railway does not show your GitHub repo
 
