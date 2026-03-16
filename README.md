@@ -10,6 +10,31 @@ single-table UI for the `mydb.computers` table in PostgreSQL.
 - Supports create, read, update, and delete operations for computers
 - Uses the schema in [db/schema.sql](db/schema.sql)
 
+## One-click deploy on Railway
+
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template?template=https://github.com/j-zavala/inventory-app)
+
+This repo now includes a `railway.json` config that runs:
+
+- `npm run migrate` to apply `db/schema.sql`
+- `npm start` to launch Express
+
+So when someone deploys this repo to Railway, they only need to:
+
+1. Create a new Railway project from this GitHub repo.
+2. Add a PostgreSQL service in the same Railway project.
+3. Set `DATABASE_URL` on the web service to the PostgreSQL connection string.
+4. Redeploy.
+
+### If Railway does not show your GitHub repo
+
+Railway can only list repositories that the Railway GitHub app can access.
+
+1. In Railway: **Account Settings → Integrations → GitHub** and reconnect if needed.
+2. In GitHub: **Settings → Applications → Installed GitHub Apps → Railway**.
+3. Under repository access, choose **All repositories** or explicitly include `inventory-app`.
+4. Return to Railway and refresh the repo list.
+
 ## Prerequisites
 
 - Node.js and npm installed
