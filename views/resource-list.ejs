@@ -4,85 +4,68 @@
     <%- include("partials/head", { title: pageTitle }) %>
   </head>
   <body>
-    <%- include("partials/header", { navKey }) %>
+    <%- include("partials/header", { navItems, navKey }) %>
 
     <main class="page-shell">
       <section class="panel">
         <div class="section-heading">
           <div>
-            <span class="eyebrow">Inventory admin</span>
             <h1><%= title %></h1>
-            <p class="section-copy"><%= intro %></p>
+            <p><%= intro %></p>
           </div>
 
-          <% if (createHref) { %>
-            <a class="button button-primary" href="<%= createHref %>">
-              <%= createLabel || "Add record" %>
-            </a>
-          <% } %>
+          <a class="button button-primary" href="<%= createHref %>">
+            <%= createLabel %>
+          </a>
         </div>
 
         <%- include("partials/flash", { successMessage, errorMessage }) %>
 
-        <% if (rows.length === 0) { %>
-          <p class="empty-state"><%= emptyMessage || "No rows found." %></p>
-        <% } else { %>
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <% columns.forEach((column) => { %>
+                  <th><%= column.label %></th>
+                <% }) %>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% rows.forEach((row) => { %>
                 <tr>
                   <% columns.forEach((column) => { %>
-                    <th><%= column.label %></th>
+                    <% const value = row[column.key]; %>
+                    <td>
+                      <% if (value instanceof Date) { %>
+                        <%= value.toISOString().slice(0, 10) %>
+                      <% } else { %>
+                        <%= value === null || value === undefined || value === "" ? "-" : value %>
+                      <% } %>
+                    </td>
                   <% }) %>
-                  <% if (rowActions && rowActions.length > 0) { %>
-                    <th>Actions</th>
-                  <% } %>
-                </tr>
-              </thead>
-              <tbody>
-                <% rows.forEach((row) => { %>
-                  <tr>
-                    <% columns.forEach((column) => { %>
-                      <% const value = column.render ? column.render(row) : row[column.key]; %>
-                      <% const cellClass = typeof column.cellClass === "function" ? column.cellClass(row) : (column.cellClass || ""); %>
-                      <td class="<%= cellClass %>">
-                        <% if (column.isHtml) { %>
-                          <%- value %>
+                  <td>
+                    <div class="action-row">
+                      <% rowActions.forEach((action) => { %>
+                        <% if (action.method === "post") { %>
+                          <form action="<%= action.href(row) %>" method="post" onsubmit="return confirm('<%= action.confirm %>')">
+                            <button class="button button-small <%= action.className %>" type="submit">
+                              <%= action.label %>
+                            </button>
+                          </form>
                         <% } else { %>
-                          <%= value === null || value === undefined || value === "" ? "—" : value %>
+                          <a class="button button-small" href="<%= action.href(row) %>">
+                            <%= action.label %>
+                          </a>
                         <% } %>
-                      </td>
-                    <% }) %>
-
-                    <% if (rowActions && rowActions.length > 0) { %>
-                      <td>
-                        <div class="action-row">
-                          <% rowActions.forEach((action) => { %>
-                            <% if (!action.when || action.when(row)) { %>
-                              <% const href = action.href(row); %>
-                              <% const className = action.className || "button-secondary"; %>
-                              <% if (action.method === "post") { %>
-                                <form action="<%= href %>" method="post" onsubmit="<%= action.confirm ? `return confirm('${action.confirm}')` : '' %>">
-                                  <button class="button button-compact <%= className %>" type="submit">
-                                    <%= action.label %>
-                                  </button>
-                                </form>
-                              <% } else { %>
-                                <a class="button button-compact <%= className %>" href="<%= href %>">
-                                  <%= action.label %>
-                                </a>
-                              <% } %>
-                            <% } %>
-                          <% }) %>
-                        </div>
-                      </td>
-                    <% } %>
-                  </tr>
-                <% }) %>
-              </tbody>
-            </table>
-          </div>
-        <% } %>
+                      <% }) %>
+                    </div>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
       </section>
     </main>
   </body>

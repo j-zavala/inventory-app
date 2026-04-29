@@ -1,62 +1,29 @@
-<% fields.forEach((field) => { %>
-  <% const value = field.value !== undefined ? field.value : (record?.[field.name] ?? ""); %>
-  <% const spanClass = field.span === "full" ? "form-card form-card-full" : "form-card"; %>
-  <div class="<%= spanClass %>">
+<div class="form-grid">
+  <% fields.forEach((field) => { %>
     <label class="field">
-      <span class="field-label">
+      <span>
         <%= field.label %>
-        <% if (field.required) { %>
-          <span class="required-mark">*</span>
-        <% } %>
+        <% if (field.required) { %>*<% } %>
       </span>
 
-      <% if (field.type === "textarea") { %>
-        <textarea
-          class="field-input field-textarea"
-          name="<%= field.name %>"
-          <%= field.required ? "required" : "" %>
-          <%= field.disabled ? "disabled" : "" %>
-        ><%= value %></textarea>
-      <% } else if (field.type === "select") { %>
-        <select
-          class="field-input"
-          name="<%= field.name %>"
-          <%= field.required ? "required" : "" %>
-          <%= field.disabled ? "disabled" : "" %>
-        >
-          <option value="">Select an option</option>
-          <% (field.options || []).forEach((option) => { %>
-            <option
-              value="<%= option.value %>"
-              <%= String(value) === String(option.value) ? "selected" : "" %>
-            >
+      <% if (field.type === "select") { %>
+        <select name="<%= field.name %>" <%= field.required ? "required" : "" %> <%= field.disabled ? "disabled" : "" %>>
+          <option value="">Select...</option>
+          <% field.options.forEach((option) => { %>
+            <option value="<%= option.value %>" <%= String(field.value) === String(option.value) ? "selected" : "" %>>
               <%= option.label %>
             </option>
           <% }) %>
         </select>
-      <% } else if (field.type === "readonly") { %>
-        <input
-          class="field-input field-input-readonly"
-          disabled
-          type="text"
-          value="<%= value %>"
-        />
       <% } else { %>
         <input
-          class="field-input"
           name="<%= field.name %>"
           type="<%= field.type || 'text' %>"
-          value="<%= value %>"
+          value="<%= field.value %>"
           <%= field.required ? "required" : "" %>
           <%= field.disabled ? "disabled" : "" %>
         />
       <% } %>
-
-      <% if (field.helpText) { %>
-        <span class="field-help <%= field.disabled ? 'field-help-muted' : '' %>">
-          <%= field.helpText %>
-        </span>
-      <% } %>
     </label>
-  </div>
-<% }) %>
+  <% }) %>
+</div>

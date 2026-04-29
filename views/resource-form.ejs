@@ -4,30 +4,23 @@
     <%- include("partials/head", { title: pageTitle }) %>
   </head>
   <body>
-    <%- include("partials/header", { navKey }) %>
+    <%- include("partials/header", { navItems, navKey }) %>
 
     <main class="page-shell">
       <section class="panel">
-        <div class="section-heading">
-          <div>
-            <span class="eyebrow">Inventory admin</span>
-            <h1><%= title %></h1>
-            <p class="section-copy"><%= intro %></p>
-          </div>
-        </div>
+        <h1><%= title %></h1>
+        <p><%= intro %></p>
 
         <%- include("partials/flash", { successMessage: null, errorMessage }) %>
 
         <form action="<%= formAction %>" class="entity-form" method="post">
-          <div class="form-grid">
-            <%- include("partials/form-fields", { fields, record }) %>
-          </div>
+          <%- include("partials/form-fields", { fields, record }) %>
 
           <div class="form-actions">
             <button class="button button-primary" type="submit">
               <%= submitLabel %>
             </button>
-            <a class="button button-secondary" href="<%= cancelHref %>">Cancel</a>
+            <a class="button" href="<%= cancelHref %>">Cancel</a>
           </div>
         </form>
       </section>

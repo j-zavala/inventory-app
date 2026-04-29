@@ -4,17 +4,12 @@
     <%- include("partials/head", { title: pageTitle }) %>
   </head>
   <body>
-    <%- include("partials/header", { navKey }) %>
+    <%- include("partials/header", { navItems, navKey }) %>
 
     <main class="page-shell">
       <section class="panel">
-        <span class="eyebrow">Application message</span>
         <h1><%= title %></h1>
-        <p class="error-copy"><%= errorDetails %></p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="/computers">Open inventory</a>
-          <a class="button button-secondary" href="/reports">View reports</a>
-        </div>
+        <p><%= errorDetails %></p>
       </section>
     </main>
   </body>

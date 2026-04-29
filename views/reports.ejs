@@ -4,138 +4,31 @@
     <%- include("partials/head", { title: pageTitle }) %>
   </head>
   <body>
-    <%- include("partials/header", { navKey }) %>
+    <%- include("partials/header", { navItems, navKey }) %>
 
     <main class="page-shell">
       <section class="panel">
-        <div class="section-heading">
-          <div>
-            <span class="eyebrow">Aggregated views</span>
-            <h1>Database reports</h1>
-            <p class="section-copy">
-              These report sections read from PostgreSQL views so the app can
-              demonstrate aggregated reporting directly from the database layer.
-            </p>
-          </div>
+        <h1>Report</h1>
+        <p>This page reads from the single aggregate view, <code>v_computers_by_status</code>.</p>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Computer count</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% rows.forEach((row) => { %>
+                <tr>
+                  <td><%= row.status %></td>
+                  <td><%= row.computer_count %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
         </div>
-      </section>
-
-      <section class="report-grid">
-        <article class="panel">
-          <div class="section-heading">
-            <div>
-              <span class="eyebrow">View</span>
-              <h2>Computers by status and type</h2>
-            </div>
-          </div>
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Status</th>
-                  <th>Device type</th>
-                  <th>Count</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% computersByStatus.forEach((row) => { %>
-                  <tr>
-                    <td><%= row.status %></td>
-                    <td><%= row.device_type %></td>
-                    <td><%= row.computer_count %></td>
-                  </tr>
-                <% }) %>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <article class="panel">
-          <div class="section-heading">
-            <div>
-              <span class="eyebrow">View</span>
-              <h2>Active assignments by department</h2>
-            </div>
-          </div>
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Department</th>
-                  <th>Role</th>
-                  <th>Active assignments</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% assignmentsByDepartment.forEach((row) => { %>
-                  <tr>
-                    <td><%= row.department || "—" %></td>
-                    <td><%= row.role_type %></td>
-                    <td><%= row.active_assignment_count %></td>
-                  </tr>
-                <% }) %>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <article class="panel">
-          <div class="section-heading">
-            <div>
-              <span class="eyebrow">View</span>
-              <h2>Software installation counts</h2>
-            </div>
-          </div>
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Software</th>
-                  <th>Vendor</th>
-                  <th>Category</th>
-                  <th>Installs</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% softwareCounts.forEach((row) => { %>
-                  <tr>
-                    <td><%= row.software_name %></td>
-                    <td><%= row.vendor || "—" %></td>
-                    <td><%= row.software_category || "—" %></td>
-                    <td><%= row.installation_count %></td>
-                  </tr>
-                <% }) %>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <article class="panel">
-          <div class="section-heading">
-            <div>
-              <span class="eyebrow">View</span>
-              <h2>Deaccessions by reason</h2>
-            </div>
-          </div>
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Reason</th>
-                  <th>Count</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% deaccessionsByReason.forEach((row) => { %>
-                  <tr>
-                    <td><%= row.reason_label %></td>
-                    <td><%= row.deaccession_count %></td>
-                  </tr>
-                <% }) %>
-              </tbody>
-            </table>
-          </div>
-        </article>
       </section>
     </main>
   </body>
