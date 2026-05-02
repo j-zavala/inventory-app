@@ -1,9 +1,5 @@
 # Simple Inventory
 
-This branch is the presentation-sized version of the inventory project. It keeps
-exactly the pieces needed for the database rubric and removes the fuller
-workflow logic from the original app.
-
 ## Rubric Coverage
 
 - 7 tables: `users`, `locations`, `computers`, `assignments`, `deaccessions`,
